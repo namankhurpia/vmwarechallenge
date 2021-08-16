@@ -1,6 +1,6 @@
-package processors;
+package com.namankhurpia.order.processors;
 
-public class calculate {
+public class Calculate {
 	
 	//global
 	final  float PI = 3.14f;
@@ -31,7 +31,7 @@ public class calculate {
 		}
 	}
 	
-	public String reectangle(int len,int wid)
+	public String calculateforRectangle(int len,int wid)
 	{
 		if(len==0 || wid ==0)
 		{

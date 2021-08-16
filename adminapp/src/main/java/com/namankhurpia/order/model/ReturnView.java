@@ -8,8 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "shape")
-public class DataSaving {
+public class ReturnView {
 	
 	@Id
 	@Column
@@ -17,9 +16,25 @@ public class DataSaving {
 	public int taskID;
 	
 	@Column
-	public String shape;
-	
-	@Column
 	public String area;
+
+	public int getTaskID() {
+		return taskID;
+	}
+
+	public void setTaskID(int taskID) {
+		this.taskID = taskID;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	
+	
 
 }

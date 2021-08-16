@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.namankhurpia.order.model.ListofShapes;
+import com.namankhurpia.order.model.ReturnView;
+import com.namankhurpia.order.model.Shape;
+import com.namankhurpia.order.processors.Calculate;
 import com.namankhurpia.order.service.ShapeService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -21,10 +24,60 @@ public class Controller {
 	@Autowired
 	private ShapeService shapeservice;
 	
+	@Autowired
+	private Calculate calculate;
+	
 	@GetMapping("getall")
-	public List<ListofShapes> getAll()
+	public ArrayList<ReturnView> getAll()
 	{
-		return shapeservice.getAll();
+		try {
+			ArrayList<ReturnView> returnlist = new ArrayList<ReturnView>();	
+		List<ListofShapes> list = shapeservice.getAll();
+		for(int i=0;i<list.size();i++)
+		{
+			ReturnView object = new ReturnView();
+			Shape obj = list.get(i).getShape();
+			if(obj.getType().equalsIgnoreCase("circle"))
+			{
+				String param1 = obj.getParam1();
+				String param2 = obj.getParam2();
+				object.setArea(calculate.calculateforCircle(Integer.parseInt(param1)));
+				
+				object.setTaskID(list.get(i).getTaskID());
+				returnlist.add(object);
+				
+			}
+			else if(obj.getType().equalsIgnoreCase("sqaure"))
+			{
+				String param1 = obj.getParam1();
+				String param2 = obj.getParam2();
+				object.setArea(calculate.calculateforSqaure(Integer.parseInt(param1)));
+				
+				object.setTaskID(list.get(i).getTaskID());
+				returnlist.add(object);
+			}
+			else if(obj.getType().equalsIgnoreCase("rectangle"))
+			{
+				String param1 = obj.getParam1();
+				String param2 = obj.getParam2();
+				object.setArea(calculate.calculateforRectangle(   (Integer.parseInt(param1)),(Integer.parseInt(param2))     ));
+				
+				object.setTaskID(list.get(i).getTaskID());
+				returnlist.add(object);
+			}
+			else
+			{
+				throw new Exception(); 
+			}
+		}
+		
+		return returnlist;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+		
 	}
 	
 	@GetMapping("/getshape/{taskId}")

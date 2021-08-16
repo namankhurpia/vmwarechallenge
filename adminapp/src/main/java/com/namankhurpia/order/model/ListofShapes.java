@@ -16,8 +16,27 @@ public class ListofShapes {
 	public int taskID;
 	
 	@Column
-	public String shape;
-	
+	public Shape shape;
+
+	public ListofShapes() {
+		
+	}
+
+	public int getTaskID() {
+		return taskID;
+	}
+
+	public void setTaskID(int taskID) {
+		this.taskID = taskID;
+	}
+
+	public Shape getShape() {
+		return shape;
+	}
+
+	public void setShape(Shape shape) {
+		this.shape = shape;
+	}
 	
 
 	
